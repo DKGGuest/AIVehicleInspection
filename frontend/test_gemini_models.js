@@ -1,6 +1,6 @@
 const https = require('https');
 
-const API_KEY = 'AIzaSyCvCSP7Tad18kzwGrSmecZyQxr3qfJoGJc';
+const API_KEY = 'API';
 
 // Helper function to call API
 function checkModel(modelName) {

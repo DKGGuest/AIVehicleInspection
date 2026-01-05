@@ -1,6 +1,6 @@
 import * as FileSystem from 'expo-file-system/legacy';
 
-export const GEMINI_API_KEY = 'AIzaSyCvCSP7Tad18kzwGrSmecZyQxr3qfJoGJc';
+export const GEMINI_API_KEY = 'API';
 
 const USE_DEMO_MODE = false;
 
