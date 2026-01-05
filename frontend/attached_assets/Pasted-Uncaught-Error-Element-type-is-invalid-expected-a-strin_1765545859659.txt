@@ -1,0 +1,79 @@
+Uncaught Error
+Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: object. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+
+Check the render method of `withDevTools(Anonymous)`.
+Call Stack
+createFiberFromTypeAndProps
+node_modules/react-dom/cjs/react-dom-client.development.js
+createFiberFromElement
+node_modules/react-dom/cjs/react-dom-client.development.js
+createChild
+node_modules/react-dom/cjs/react-dom-client.development.js
+reconcileChildrenArray
+node_modules/react-dom/cjs/react-dom-client.development.js
+reconcileChildFibersImpl
+node_modules/react-dom/cjs/react-dom-client.development.js
+<anonymous>
+node_modules/react-dom/cjs/react-dom-client.development.js
+reconcileChildren
+node_modules/react-dom/cjs/react-dom-client.development.js
+updateFunctionComponent
+node_modules/react-dom/cjs/react-dom-client.development.js
+beginWork
+node_modules/react-dom/cjs/react-dom-client.development.js
+runWithFiberInDEV
+node_modules/react-dom/cjs/react-dom-client.development.js
+performUnitOfWork
+node_modules/react-dom/cjs/react-dom-client.development.js
+workLoopSync
+node_modules/react-dom/cjs/react-dom-client.development.js
+renderRootSync
+node_modules/react-dom/cjs/react-dom-client.development.js
+performWorkOnRoot
+node_modules/react-dom/cjs/react-dom-client.development.js
+performWorkOnRootViaSchedulerTask
+node_modules/react-dom/cjs/react-dom-client.development.js
+performWorkUntilDeadline
+node_modules/scheduler/cjs/scheduler.development.js
+Collapse all 16 frames
+
+I am having this error in terminal 
+
+Download the React DevTools for a better development experience: https://react.dev/link/react-devtools
+AppEntry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=app&unstable_transformProfile=hermes-stable:4743 Running application "main" with appParams:
+ Object 
+Development-level warnings: ON.
+Performance optimizations: OFF.
+AppEntry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=app&unstable_transformProfile=hermes-stable:4743 Running application "main" with appParams:
+ Object 
+Development-level warnings: ON.
+Performance optimizations: OFF.
+AppEntry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=app&unstable_transformProfile=hermes-stable:25427 You are calling ReactDOMClient.createRoot() on a container that has already been passed to createRoot() before. Instead, call root.render() on the existing root instead if you want to update it.
+registerError @ AppEntry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=app&unstable_transformProfile=hermes-stable:25427
+AppEntry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=app&unstable_transformProfile=hermes-stable:23928 "shadow*" style props are deprecated. Use "boxShadow".
+warnOnce @ AppEntry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=app&unstable_transformProfile=hermes-stable:23928
+AppEntry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=app&unstable_transformProfile=hermes-stable:7686 Uncaught Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: object. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+
+Check the render method of `withDevTools(Anonymous)`.
+    at createFiberFromTypeAndProps (AppEntry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=app&unstable_transformProfile=hermes-stable:7686:26)
+    at createFiberFromElement (AppEntry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=app&unstable_transformProfile=hermes-stable:7697:14)
+    at createChild (AppEntry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=app&unstable_transformProfile=hermes-stable:9600:30)
+    at reconcileChildrenArray (AppEntry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=app&unstable_transformProfile=hermes-stable:9713:68)
+    at reconcileChildFibersImpl (AppEntry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=app&unstable_transformProfile=hermes-stable:9820:111)
+    at AppEntry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=app&unstable_transformProfile=hermes-stable:9847:33
+    at reconcileChildren (AppEntry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=app&unstable_transformProfile=hermes-stable:10109:49)
+    at updateFunctionComponent (AppEntry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=app&unstable_transformProfile=hermes-stable:10218:7)
+    at beginWork (AppEntry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=app&unstable_transformProfile=hermes-stable:10798:18)
+    at runWithFiberInDEV (AppEntry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=app&unstable_transformProfile=hermes-stable:6291:70)
+    at performUnitOfWork (AppEntry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=app&unstable_transformProfile=hermes-stable:12871:95)
+    at workLoopSync (AppEntry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=app&unstable_transformProfile=hermes-stable:12764:40)
+    at renderRootSync (AppEntry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=app&unstable_transformProfile=hermes-stable:12748:9)
+    at performWorkOnRoot (AppEntry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=app&unstable_transformProfile=hermes-stable:12512:44)
+    at performWorkOnRootViaSchedulerTask (AppEntry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=app&unstable_transformProfile=hermes-stable:13468:7)
+    at MessagePort.performWorkUntilDeadline (AppEntry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=app&unstable_transformProfile=hermes-stable:19116:48)
+AppEntry.bundle?platform=web&dev=true&hot=false&lazy=true&transform.engine=hermes&transform.routerRoot=app&unstable_transformProfile=hermes-stable:9973 An error occurred in the <withDevTools(Anonymous)> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+this error in console 
