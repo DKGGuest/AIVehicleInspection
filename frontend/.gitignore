@@ -1,0 +1,22 @@
+
+node_modules/
+.expo/
+dist/
+web-build/
+
+# MacOS
+.DS_Store
+
+# Android
+android/
+*.jks
+*.keystore
+
+# iOS
+ios/
+*.p12
+*.mobileprovision
+
+# NPM
+package-lock.json
+yarn.lock
