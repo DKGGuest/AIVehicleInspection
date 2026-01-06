@@ -2,7 +2,7 @@
 import * as FileSystem from 'expo-file-system/legacy';
 
 // Backend API Configuration
-const API_BASE_URL = 'http://192.168.29.142:8000'; // Ensure this matches your backend IP
+const API_BASE_URL = 'http://10.46.184.141:8000'; // Ensure this matches your backend IP
 
 export async function demoLogin() {
   try {
