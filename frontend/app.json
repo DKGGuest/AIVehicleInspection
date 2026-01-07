@@ -29,7 +29,8 @@
       "permissions": [
         "android.permission.RECORD_AUDIO"
       ],
-      "usesCleartextTraffic": true
+      "usesCleartextTraffic": true,
+      "jsEngine": "hermes"
     },
     "web": {
       "bundler": "metro",
