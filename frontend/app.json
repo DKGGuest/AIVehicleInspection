@@ -27,10 +27,15 @@
       },
       "package": "com.taxi.app",
       "permissions": [
+        "android.permission.INTERNET",
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
         "android.permission.RECORD_AUDIO"
       ],
       "usesCleartextTraffic": true,
-      "jsEngine": "hermes"
+      "jsEngine": "hermes",
+      "enableProguardInReleaseBuilds": true
     },
     "web": {
       "bundler": "metro",

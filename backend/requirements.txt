@@ -6,3 +6,5 @@ scikit-image
 numpy
 python-multipart
 python-dotenv
+azure-storage-blob
+aiofiles

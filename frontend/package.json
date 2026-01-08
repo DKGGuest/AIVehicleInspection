@@ -22,6 +22,7 @@
     "diff": "^8.0.2",
     "diff-match-patch": "^1.0.5",
     "expo": "~54.0.30",
+    "expo-build-properties": "^1.0.10",
     "expo-camera": "~17.0.10",
     "expo-file-system": "~19.0.20",
     "expo-haptics": "^15.0.8",

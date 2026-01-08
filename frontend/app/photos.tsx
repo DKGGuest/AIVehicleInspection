@@ -10,6 +10,7 @@ import { compressImage } from '@/utils/imageCompression';
 import { analyzeBatchCarDamage, generateDamageReport } from '@/utils/geminiAnalysis';
 import { useAuth } from '@/contexts/auth-context';
 import { useCars } from '@/contexts/cars-context';
+import { uploadImage } from '@/utils/api';
 
 export default function PhotosScreen() {
   const router = useRouter();
@@ -165,28 +166,71 @@ export default function PhotosScreen() {
     }
   };
 
+
+
+  // ... (existing imports)
+
   const handleSave = async () => {
-    const photosWithUri = photos.filter(p => p.uri);
+    const photosWithUri = photos
+      .map((p, index) => ({ uri: p.uri, index }))
+      .filter(p => p.uri);
+
     if (photosWithUri.length === 0) {
       Alert.alert('No Photos', 'Please take at least one photo.');
       return;
     }
 
-    await saveToContext(photosWithUri.map(p => p.uri));
-  };
-
-  const saveToContext = async (uris: string[]) => {
     setIsSaving(true);
+    const total = photosWithUri.length;
+    let completed = 0;
+    setLoadingMessage(`Uploading 0/${total}...`);
+
     try {
-      await updateCarPhotos(carId, uris);
-      Alert.alert('Success', 'Photos saved successfully!', [
-        { text: 'OK', onPress: () => { } } // Stay here so they can analyze? Or go back?
-      ]);
+      // 1. Upload to Backend/Azure (PARALLEL)
+      const uploadPromises = photosWithUri.map(async (photo) => {
+        const label = PHOTO_CONFIG[photo.index]?.label || `Photo_${photo.index + 1}`;
+        const safeLabel = label.replace(/[^a-zA-Z0-9]/g, '_');
+
+        console.log(`Starting upload: ${label}`);
+        try {
+          await uploadImage(Number(carId) || 0, safeLabel, photo.uri);
+          completed++;
+          setLoadingMessage(`Uploading ${completed}/${total}...`);
+          return true;
+        } catch (uploadError) {
+          console.error(`Failed to upload ${label}:`, uploadError);
+          completed++;
+          setLoadingMessage(`Uploading ${completed}/${total}...`);
+          return false;
+        }
+      });
+
+      const results = await Promise.all(uploadPromises);
+      const successCount = results.filter(r => r === true).length;
+
+      // 2. Save to local context
+      await updateCarPhotos(carId, photos.map(p => p.uri));
+
+      if (successCount === photosWithUri.length) {
+        Alert.alert('Success', 'Upload Success', [
+          { text: 'OK', onPress: () => router.back() }
+        ]);
+      } else {
+        Alert.alert('Partial Success', `${successCount}/${photosWithUri.length} photos uploaded. Check connection and try again.`);
+      }
+
     } catch (e) {
+      console.error(e);
       Alert.alert('Error', 'Failed to save photos');
     } finally {
       setIsSaving(false);
+      setLoadingMessage('');
     }
+  };
+
+  const saveToContext = async (uris: string[]) => {
+    // Deprecated/Merged into handleSave
+    await updateCarPhotos(carId, uris);
   };
 
   const handleAnalyze = async () => {
@@ -203,6 +247,30 @@ export default function PhotosScreen() {
       const uris = photosWithUri.map(p => p.uri);
       // Ensure photos are saved first
       await updateCarPhotos(carId, uris);
+
+      // --- NEW: Upload to Cloud before Analysis (PARALLEL) ---
+      const photosWithIndex = photos.map((p, index) => ({ uri: p.uri, index })).filter(p => p.uri);
+      const total = photosWithIndex.length;
+      let completed = 0;
+      setLoadingMessage(`Uploading 0/${total} to AI Cloud...`);
+      console.log("START UPLOAD FOR ANALYZE (PARALLEL)");
+
+      const uploadPromises = photosWithIndex.map(async (photo) => {
+        const label = PHOTO_CONFIG[photo.index]?.label || `Photo_${photo.index + 1}`;
+        const safeLabel = label.replace(/[^a-zA-Z0-9]/g, '_');
+
+        console.log(`Starting upload: ${label}`);
+        const res = await uploadImage(Number(carId) || 0, safeLabel, photo.uri);
+        console.log(`UPLOADED: ${label}`, res?.url || "Success");
+        completed++;
+        setLoadingMessage(`Uploading ${completed}/${total} to AI Cloud...`);
+        return res;
+      });
+
+      await Promise.all(uploadPromises);
+
+      console.log("ALL UPLOADS DONE");
+      // ---------------------------------------------
 
       const results = await analyzeBatchCarDamage(uris);
       const resultsJson = JSON.stringify(results);
@@ -376,7 +444,7 @@ export default function PhotosScreen() {
         </View>
       </View>
 
-      <Modal transparent={true} visible={isAnalyzing} animationType="fade">
+      <Modal transparent={true} visible={isAnalyzing || isSaving} animationType="fade">
         <View style={styles.loadingOverlay}>
           <ActivityIndicator size="large" color="#fff" />
           <Text style={styles.loadingText}>{loadingMessage}</Text>

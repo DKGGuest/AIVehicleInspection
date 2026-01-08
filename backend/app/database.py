@@ -49,23 +49,27 @@ class MockConnection:
 # ------------------------------------
 
 def get_connection():
-    # Force Mock Connection for now due to Azure connectivity issues
-    return MockConnection()
+    # helper to get env or config
+    def get_config(key, default=None):
+        val = os.getenv(key)
+        if val: return val
+        try:
+            import config
+            return getattr(config, key, default)
+        except ImportError:
+            return default
 
-    # Original Code (Commented out)
-    """
     try:
         conn = mysql.connector.connect(
-            host=os.getenv("DB_HOST"),
-            user=os.getenv("DB_USER"),
-            password=os.getenv("DB_PASSWORD"),
-            database=os.getenv("DB_NAME"),
-            port=os.getenv("DB_PORT", 3306),
-            ssl_ca=os.getenv("DB_SSL_CA") 
+            host=get_config("DB_HOST"),
+            user=get_config("DB_USER"),
+            password=get_config("DB_PASSWORD"),
+            database=get_config("DB_NAME"),
+            port=int(get_config("DB_PORT", 3306))
+            # ssl_ca=os.getenv("DB_SSL_CA") 
         )
         return conn
     except mysql.connector.Error as err:
         print(f"Error connecting to database: {err}")
-        # Fallback to Mock if real DB fails
+        print("Falling back to MOCK database.")
         return MockConnection()
-    """

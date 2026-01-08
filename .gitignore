@@ -1,0 +1,25 @@
+
+# General
+.DS_Store
+.idea/
+.vscode/
+
+# Frontend (Node/Expo)
+frontend/node_modules/
+frontend/.expo/
+frontend/dist/
+frontend/web-build/
+frontend/android/
+frontend/ios/
+frontend/*.jks
+frontend/*.keystore
+frontend/*.p12
+frontend/*.mobileprovision
+
+# Backend (Python/FastAPI)
+backend/__pycache__/
+backend/*.pyc
+backend/.env
+backend/venv/
+backend/.pytest_cache/
+backend/files/

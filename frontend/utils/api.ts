@@ -2,7 +2,7 @@
 import * as FileSystem from 'expo-file-system/legacy';
 
 // Backend API Configuration
-const API_BASE_URL = 'https://ridesurebackend-1.onrender.com'; // Ensure this matches your backend IP
+const API_BASE_URL = 'http://10.46.184.141:8000'; // Local Backend IP
 
 export async function demoLogin() {
   try {
@@ -88,7 +88,7 @@ export async function uploadImage(
 
     formData.append('file', {
       uri: imageUri,
-      name: `photo.${fileType}`,
+      name: `photo_${Date.now()}.${fileType}`,
       type: `image/${fileType}`,
     } as any);
 
@@ -96,12 +96,14 @@ export async function uploadImage(
       method: 'POST',
       body: formData,
       headers: {
-        'Content-Type': 'multipart/form-data',
+        // 'Content-Type': 'multipart/form-data', // Let fetch handle boundary
       },
     });
 
     if (!response.ok) throw new Error('Upload image failed');
-    return await response.json();
+    const result = await response.json();
+    console.log("UPLOAD SUCCESS:", result);
+    return result;
   } catch (error) {
     console.error('Upload image error:', error);
     throw error;
@@ -185,7 +187,7 @@ export async function compareImages(oldImageUri: string, newImageUri: string) {
       method: 'POST',
       body: formData,
       headers: {
-        'Content-Type': 'multipart/form-data',
+        // 'Content-Type': 'multipart/form-data', // Let fetch handle boundary
       },
     });
 
@@ -218,7 +220,7 @@ export async function uploadFile(fileType: string, fileUri: string) {
       method: 'POST',
       body: formData,
       headers: {
-        'Content-Type': 'multipart/form-data',
+        // 'Content-Type': 'multipart/form-data', // Let fetch handle boundary
       },
     });
 
